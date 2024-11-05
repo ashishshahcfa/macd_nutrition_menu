@@ -64,7 +64,7 @@
 	FROM MacDonalds
 	GROUP BY category
 
--- CATEGORY ANALYSIS
+-- CATEGORY ANALYSIS USING WINDOWS()
 	SELECT DISTINCT category AS Category,
 	ROUND(MAX(sugar + [added sugar]) OVER (PARTITION BY category),2) AS Max_Sugar,
 	ROUND(MIN(sugar + [added sugar]) OVER (PARTITION BY category),2) AS Min_Sugar,
@@ -102,7 +102,7 @@
 	FROM RankedItems
 	WHERE sugar_rank <= 3
 
--- Calculate the Average Cholesterol Content Across All Categories and Compare It to Each Category’s Cholesterol
+-- Calculate the Average Cholesterol Content Across All Categories and Compare It to Each Categoryâ€™s Cholesterol
 	WITH AvgCholesterol AS 
 	(SELECT CAST(AVG(cholesterol) AS decimal (10,2)) AS overall_avg_cholesterol FROM macdonalds)
 	SELECT category, 
