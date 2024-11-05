@@ -92,7 +92,7 @@
 	ORDER BY health_score ASC
 
 
--- Find the Top 3 Items with the Highest Sugar Content in Each Category
+-- Find the Top 3 Items with the Highest Sugar Content in Each Category with CTE & WINDOWS()
 	WITH RankedItems AS (
     SELECT category, item, sugar, 
     RANK() OVER (PARTITION BY category ORDER BY sugar DESC) AS sugar_rank 
@@ -102,7 +102,7 @@
 	FROM RankedItems
 	WHERE sugar_rank <= 3
 
--- Calculate the Average Cholesterol Content Across All Categories and Compare It to Each Category’s Cholesterol
+-- Calculate the Average Cholesterol Content Across All Categories and Compare It to Each Category’s Cholesterol with CTE, SUBQUERY & WINDOWS()
 	WITH AvgCholesterol AS 
 	(SELECT CAST(AVG(cholesterol) AS decimal (10,2)) AS overall_avg_cholesterol FROM macdonalds)
 	SELECT category, 
